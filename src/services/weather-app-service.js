@@ -1,4 +1,4 @@
-const apiKey = "a92a5f3bcd378a15028fc02664563c62";
+const apiKey = process.env.PERENUAL_API_KEY;
 
 export const fetchWeatherData = async(city) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
