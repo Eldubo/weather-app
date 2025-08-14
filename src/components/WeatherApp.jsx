@@ -36,9 +36,16 @@ export const WeatherApp = () => {
 
     fetchWeather();
   }, [resultadoConsultaContext]);
-
   return (
     <div>
+      {/* Input para cambiar ciudad */}
+      <input
+        type="text"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        placeholder="Ingresa una ciudad"
+      />
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
       
       {/* Clima actual */}
@@ -52,21 +59,19 @@ export const WeatherApp = () => {
         </div>
       )}
       
-      {/* Pronóstico de los próximos días */}
+      {/* Pronóstico */}
       {forecastData.length > 0 && (
         <div>
           <h3>Pronóstico de los próximos días:</h3>
-          <div>
-            {forecastData.map((day, index) => (
-              <div key={index}>
-                <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
-                <p>Temperatura máxima: {day.main.temp_max} °C</p>
-                <p>Temperatura mínima: {day.main.temp_min} °C</p>
-                <p>Descripción: {day.weather[0]?.description}</p>
-                <p>Viento: {day.wind?.speed} m/s</p>
-              </div>
-            ))}
-          </div>
+          {forecastData.map((day, index) => (
+            <div key={index}>
+              <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
+              <p>Temperatura máxima: {day.main.temp_max} °C</p>
+              <p>Temperatura mínima: {day.main.temp_min} °C</p>
+              <p>Descripción: {day.weather[0]?.description}</p>
+              <p>Viento: {day.wind?.speed} m/s</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
