@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weather-app-service';
-import {  useResultado } from 'src/context/resultadoConsultaContext.jsx';
 
 export const WeatherApp = () => {
   const {setWeatherData} = useResultado();
