@@ -2,7 +2,7 @@
 import {fetchWeatherData} from '../services/weather-app-service.js';
 import React, { useState } from 'react';
 
-const InputCity = () => {
+const InputCity = (modoProvider) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
@@ -18,7 +18,7 @@ const InputCity = () => {
   };
 
   return (
-    <div>
+    <div className={modoProvider}>
       <input
         type="text"
         placeholder="Ingresa una ciudad"

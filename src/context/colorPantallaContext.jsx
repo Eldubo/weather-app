@@ -1,0 +1,17 @@
+
+import React, { createContext, useState, useContext } from 'react';
+
+// Crear el contexto de últ consulta
+export let colorPantallaContext = createContext();
+
+
+// Componente Provider que envuelve la aplicación
+export const modoProvider = ({ children }) => {
+  const [colorPantalla, setColorPantalla] = useState('');
+
+  return (
+    <colorPantallaContext.Provider value={{ colorPantalla, setColorPantalla }}>
+      {children}
+    </colorPantallaContext.Provider>
+  );
+};
