@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useCity } from '../context/CityContext';
 import { fetchWeatherData } from '../services/weather-app-service';
+import {  useResultado } from 'src/context/resultadoConsultaContext.jsx';
 
-const WeatherApp = () => {
-  const { city } = useCity();
-  const [weatherData, setWeatherData] = useState(null);
+export const WeatherApp = () => {
+  const {setWeatherData} = useResultado();
   const [error, setError] = useState('');
   const [forecastData, setForecastData] = useState([]);
 

@@ -1,10 +1,8 @@
 // src/components/InputCity.jsx
-import {fetchWeatherData} from 'src/services/weather-app-service.js';
+import {fetchWeatherData} from '../services/weather-app-service.js';
 import React, { useState } from 'react';
-import { useCity } from '../context/CityContext';
 
 const InputCity = () => {
-  const { setCity } = useCity();  // Accedemos a `setCity` del contexto
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
@@ -16,7 +14,7 @@ const InputCity = () => {
       alert('Por favor ingresa una ciudad');
       return;
     }
-    setCity(inputValue); // Actualizamos el valor de la ciudad en el contexto
+    fetchWeatherData(inputValue); 
   };
 
   return (

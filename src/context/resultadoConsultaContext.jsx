@@ -11,7 +11,7 @@ export const useResultado = () => {
 };
 
 // Componente Provider que envuelve la aplicación
-export const resultadoProvider = ({ children }) => {
+export const ResultadoProvider = ({ children }) => {
   const [resultadoConsulta, setResultadoConsulta] = useState('');
 
   return (
