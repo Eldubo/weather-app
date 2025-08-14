@@ -1,5 +1,5 @@
 // src/components/InputCity.jsx
-
+import {fetchWeatherData} from 'src/services/weather-app-service.js';
 import React, { useState } from 'react';
 import { useCity } from '../context/CityContext';
 

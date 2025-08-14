@@ -1,7 +1,8 @@
 // src/App.js
 
 import React from 'react';
-import { CityProvider } from './context/CityContext';
+import { ResultadoProvider } from './context/resultadoConsultaContext';
+import { ProximosDiasProvider } from './context/proximosDiasContext';
 import InputCity from './components/InputCity';
 import WeatherApp from './components/WeatherApp';  // Suponiendo que tienes este componente
 
