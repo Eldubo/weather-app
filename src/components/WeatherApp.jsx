@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { fetchWeatherData } from '../services/weather-app-service';
 
 export const WeatherApp = () => {
-  const {setWeatherData} = useResultado();
+  const {weatherData, setWeatherData} = useContext(resultadoConsultaContext);
   const [error, setError] = useState('');
   const [forecastData, setForecastData] = useState([]);
 
   useEffect(() => {
-    if (!city) return;
 
     const fetchWeather = async () => {
       try {
-        const data = await fetchWeatherData(city);
+        const data = await useContext(resultadoConsultaContext);
         
         // Verifica si los datos actuales y el pronóstico fueron recibidos correctamente
-        if (data && data.current) {
-          setWeatherData(data.current);
+        if (weatherData) {
+         /* setWeatherData(data.current);
           setError('');
 
           // Filtra los datos del pronóstico para mostrar uno por día (primer dato de cada día)
@@ -25,6 +23,7 @@ export const WeatherApp = () => {
           });
 
           setForecastData(forecast);
+          */
         } else {
           setError('No se pudieron obtener los datos del clima.');
           setWeatherData(null);
@@ -36,7 +35,7 @@ export const WeatherApp = () => {
     };
 
     fetchWeather();
-  }, [city]);
+  }, [resultadoConsultaContext]);
 
   return (
     <div>
