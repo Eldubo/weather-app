@@ -6,7 +6,7 @@ export let colorPantallaContext = createContext();
 
 
 // Componente Provider que envuelve la aplicación
-export const modoProvider = ({ children }) => {
+export const ModoProvider = ({ children }) => {
   const [colorPantalla, setColorPantalla] = useState('');
 
   return (

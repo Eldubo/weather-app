@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ResultadoProvider } from './context/resultadoConsultaContext';
-import { ModoProvider } from './context/resultadoConsultaContext';
+import { ModoProvider } from './context/colorPantallaContext';
 import InputCity from './components/InputCity';
 import WeatherApp from './components/WeatherApp';  // Suponiendo que tienes este componente
 

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weather-app-service';
 
 export const WeatherApp = () => {
-  const {setWeatherData} = useResultado();
-  const [error, setError] = useState('');
+  const [city, setCity] = useState('');
+  const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!city) return;
@@ -12,19 +13,17 @@ export const WeatherApp = () => {
     const fetchWeather = async () => {
       try {
         const data = await fetchWeatherData(city);
-        
-        // Verifica si los datos actuales y el pronóstico fueron recibidos correctamente
+
         if (data && data.current) {
           setWeatherData(data.current);
           setError('');
 
-          // Filtra los datos del pronóstico para mostrar uno por día (primer dato de cada día)
-          const forecast = data.forecast?.list.filter((item, index, arr) => {
-            // Selecciona solo el primer dato de cada día (por ejemplo, a las 12:00)
-            return index % 8 === 0;  // Los datos están cada 3 horas, 8 datos = 24 horas (1 día)
-          });
-
-          setForecastData(forecast);
+          if (data.forecast?.list) {
+            const forecast = data.forecast.list.filter((item, index) => index % 8 === 0);
+            setForecastData(forecast);
+          } else {
+            setForecastData([]);
+          }
         } else {
           setError('No se pudieron obtener los datos del clima.');
           setWeatherData(null);
@@ -32,6 +31,7 @@ export const WeatherApp = () => {
       } catch (err) {
         setError('Error al obtener los datos del clima');
         setWeatherData(null);
+        setForecastData([]);
       }
     };
 
@@ -40,6 +40,14 @@ export const WeatherApp = () => {
 
   return (
     <div>
+      {/* Input para cambiar ciudad */}
+      <input
+        type="text"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        placeholder="Ingresa una ciudad"
+      />
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
       
       {/* Clima actual */}
@@ -53,21 +61,19 @@ export const WeatherApp = () => {
         </div>
       )}
       
-      {/* Pronóstico de los próximos días */}
+      {/* Pronóstico */}
       {forecastData.length > 0 && (
         <div>
           <h3>Pronóstico de los próximos días:</h3>
-          <div>
-            {forecastData.map((day, index) => (
-              <div key={index}>
-                <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
-                <p>Temperatura máxima: {day.main.temp_max} °C</p>
-                <p>Temperatura mínima: {day.main.temp_min} °C</p>
-                <p>Descripción: {day.weather[0]?.description}</p>
-                <p>Viento: {day.wind?.speed} m/s</p>
-              </div>
-            ))}
-          </div>
+          {forecastData.map((day, index) => (
+            <div key={index}>
+              <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
+              <p>Temperatura máxima: {day.main.temp_max} °C</p>
+              <p>Temperatura mínima: {day.main.temp_min} °C</p>
+              <p>Descripción: {day.weather[0]?.description}</p>
+              <p>Viento: {day.wind?.speed} m/s</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
