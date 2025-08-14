@@ -1,77 +1,69 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import '../styles/weather-info.css';
+import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
 
 export const WeatherApp = () => {
-  const {weatherData, setWeatherData} = useContext(resultadoConsultaContext);
-  const [error, setError] = useState('');
-  const [forecastData, setForecastData] = useState([]);
+  const { weatherData } = useContext(resultadoConsultaContext);
 
-  useEffect(() => {
+  if (!weatherData) {
+    return <p>Busca una ciudad para ver el clima.</p>;
+  }
 
-    const fetchWeather = async () => {
-      try {
-        const data = await useContext(resultadoConsultaContext);
-        
-        // Verifica si los datos actuales y el pronóstico fueron recibidos correctamente
-        if (weatherData) {
-         /* setWeatherData(data.current);
-          setError('');
+  // El pronóstico está en weatherData.list (por ser la respuesta de /forecast)
+  const forecastData = weatherData.list
+    ? weatherData.list.filter((item, idx) => idx % 8 === 0)
+    : [];
 
-          // Filtra los datos del pronóstico para mostrar uno por día (primer dato de cada día)
-          const forecast = data.forecast?.list.filter((item, index, arr) => {
-            // Selecciona solo el primer dato de cada día (por ejemplo, a las 12:00)
-            return index % 8 === 0;  // Los datos están cada 3 horas, 8 datos = 24 horas (1 día)
-          });
+  const current = weatherData.list?.[0];
 
-          setForecastData(forecast);
-          */
-        } else {
-          setError('No se pudieron obtener los datos del clima.');
-          setWeatherData(null);
-        }
-      } catch (err) {
-        setError('Error al obtener los datos del clima');
-        setWeatherData(null);
-      }
-    };
-
-    fetchWeather();
-  }, [resultadoConsultaContext]);
   return (
-    <div>
-      {/* Input para cambiar ciudad */}
-      <input
-        type="text"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        placeholder="Ingresa una ciudad"
-      />
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      
+    <div className="weather-container">
       {/* Clima actual */}
-      {weatherData && (
-        <div>
-          <h2>{weatherData.name}, {weatherData.sys?.country}</h2>
-          <p>Temperatura: {weatherData.main?.temp} °C</p>
-          <p>Descripción: {weatherData.weather?.[0]?.description}</p>
-          <p>Humedad: {weatherData.main?.humidity} %</p>
-          <p>Viento: {weatherData.wind?.speed} m/s</p>
+      <div className="weather-header">
+        <img
+          className="weather-icon"
+          src={`https://openweathermap.org/img/wn/${current.weather?.[0]?.icon}@4x.png`}
+          alt={current.weather?.[0]?.description}
+        />
+        <h2>
+          {weatherData.city?.name}, {weatherData.city?.country}
+        </h2>
+      </div>
+      <div className="weather-main">
+        <div className="weather-main-info">
+          <p><strong>Temperatura:</strong> {current.main?.temp} °C</p>
+          <p><strong>Sensación térmica:</strong> {current.main?.feels_like} °C</p>
+          <p><strong>Humedad:</strong> {current.main?.humidity} %</p>
+          <p><strong>Presión:</strong> {current.main?.pressure} hPa</p>
+          <p><strong>Viento:</strong> {current.wind?.speed} m/s</p>
+          <p><strong>Descripción:</strong> {current.weather?.[0]?.description}</p>
         </div>
-      )}
-      
+      </div>
+
       {/* Pronóstico */}
       {forecastData.length > 0 && (
-        <div>
+        <div className="forecast-section">
           <h3>Pronóstico de los próximos días:</h3>
-          {forecastData.map((day, index) => (
-            <div key={index}>
-              <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
-              <p>Temperatura máxima: {day.main.temp_max} °C</p>
-              <p>Temperatura mínima: {day.main.temp_min} °C</p>
-              <p>Descripción: {day.weather[0]?.description}</p>
-              <p>Viento: {day.wind?.speed} m/s</p>
-            </div>
-          ))}
+          <div className="forecast-list">
+            {forecastData.map((day, index) => (
+              <div className="forecast-card" key={index}>
+                <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
+                <img
+                  className="forecast-icon"
+                  src={`https://openweathermap.org/img/wn/${day.weather[0]?.icon}@2x.png`}
+                  alt={day.weather[0]?.description}
+                />
+                <div className="forecast-temp">
+                  <span>Máx: {day.main.temp_max}°C</span><br />
+                  <span>Mín: {day.main.temp_min}°C</span>
+                </div>
+                <div className="forecast-desc">{day.weather[0]?.description}</div>
+                <div style={{ fontSize: '0.95rem', color: '#b8c1ec' }}>
+                  Viento: {day.wind?.speed} m/s
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

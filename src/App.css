@@ -1,42 +1,62 @@
-#root {
-  max-width: 1280px;
+/* App.css */
+
+.App {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
   text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #213547;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Contenedor principal del pronóstico */
+.pronostico-container {
+  display: flex;
+  flex-wrap: wrap; /* Para que no haya scroll horizontal */
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Tarjeta individual */
+.pronostico-card {
+  background: linear-gradient(135deg, #1c2340, #2e3b6b);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  flex: 1 1 150px; /* Se adapta al espacio disponible */
+  max-width: 180px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.pronostico-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Imagen del clima */
+.pronostico-card img {
+  max-width: 60px;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .pronostico-card {
+    flex: 1 1 100%; /* Una por fila en pantallas pequeñas */
+    max-width: 100%;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

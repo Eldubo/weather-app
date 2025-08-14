@@ -1,0 +1,222 @@
+.weather-container {
+  width: 100%;
+  max-width: 3000px;
+  min-height: 80vh;
+  margin: 20px auto;
+  background: #232946;
+  color: #f4faff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+  padding: 40px 32px;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.weather-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.weather-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.weather-main-info {
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.weather-main-info p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+.weather-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.forecast-section {
+  margin-top: 32px;
+}
+
+.forecast-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: #eebbc3;
+}
+
+/* Aquí eliminamos scroll y permitimos salto de línea */
+.forecast-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.forecast-card {
+  background: #121629;
+  border-radius: 12px;
+  padding: 18px 14px;
+  flex: 1 1 160px; /* ancho flexible */
+  max-width: 180px;
+  box-shadow: 0 2px 8px rgba(31, 38, 135, 0.10);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.forecast-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+}
+
+.forecast-card h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #eebbc3;
+}
+
+.forecast-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+}
+
+.forecast-temp {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 4px 0;
+}
+
+.forecast-desc {
+  font-size: 0.95rem;
+  color: #b8c1ec;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 1000px) {
+  .weather-container {
+    max-width: 100%;
+    padding: 24px 4vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .weather-container {
+    padding: 16px 2vw;
+    min-height: 50vh;
+  }
+
+  .forecast-card {
+    flex: 1 1 100%; /* Una por fila en móvil */
+    max-width: 100%;
+  }
+}
+
+/* Input y botón de búsqueda */
+.input-search-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.input-search {
+  padding: 12px 18px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #eebbc3;
+  color: #232946;
+  outline: none;
+  transition: box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 2px 8px rgba(31, 38, 135, 0.08);
+}
+
+.input-search:focus {
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(31, 38, 135, 0.18);
+}
+
+.button-search {
+  padding: 12px 22px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #232946;
+  color: #eebbc3;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(31, 38, 135, 0.08);
+}
+
+.button-search:hover {
+  background: #eebbc3;
+  color: #232946;
+  transform: translateY(-2px) scale(1.04);
+}
+.button-search:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 2px 6px rgba(31, 38, 135, 0.12);
+}
+.weather-error {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 16px;
+}
+.weather-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: #eebbc3;
+}
+.weather-loading::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 4px solid #eebbc3;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.weather-footer {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b8c1ec;
+}
+.weather-footer a {
+  color: #eebbc3;
+  text-decoration: none;
+  transition: color 0.2s;
+}
