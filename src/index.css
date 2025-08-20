@@ -1,18 +1,85 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ===== Reset global ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background-color: #1a1a2e; /* Fondo oscuro */
+  color: #fff;
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+}
+
+/* ===== Contenedor principal ===== */
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 800px; /* Ajusta el ancho máximo */
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #232946;  /* Fondo del contenedor */
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
+}
+
+/* ===== Búsqueda y encabezado ===== */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #eebbc3; /* Color del título */
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px; /* Limita el ancho del contenedor de búsqueda */
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #f4faff;
+  color: #232946;
+  flex-grow: 1; /* Toma el espacio restante */
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background-color: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #535bf2;
+}
+
+/* ===== Estilos de enlaces ===== */
 a {
   font-weight: 500;
   color: #646cff;
@@ -20,40 +87,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #f4faff;
-  min-height: 100vh;
-}
-
-body, #root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Cambia a flex-start si quieres el contenido arriba */
-  min-height: 100vh;
-  width: 100vw;
-  box-sizing: border-box;
-}
-
-.App {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* Cambia a center si quieres todo centrado verticalmente */
-  padding-top: 32px;
-  box-sizing: border-box;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -73,17 +106,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

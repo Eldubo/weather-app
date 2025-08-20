@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import '../styles/weather-info.css';
 import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
 import { colorPantallaContext } from '../context/colorPantallaContext';
 
@@ -16,6 +15,7 @@ const WeatherApp = () => {
   const next24hForecast = weatherData.list.filter(item => {
     return item.dt > now && item.dt <= now + 24 * 3600;
   });
+
 
 
   // ---- AGRUPAR POR DÍA PARA LOS 5 DÍAS ----
