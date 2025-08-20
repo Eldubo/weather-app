@@ -5,6 +5,9 @@ import { ResultadoProvider } from './context/resultadoConsultaContext';
 import { ModoProvider } from './context/colorPantallaContext';
 import InputCity from './components/InputCity';
 import WeatherApp from './components/WeatherApp';  // Suponiendo que tienes este componente
+import {Next24HoursForecast} from './components/Next24HoursForecast';
+import {Next5DaysForecast} from './components/Next5DaysForecast';
+import { CurrentWeather } from './components/CurrentWeather';
 
 function App() {
   return (
@@ -13,7 +16,9 @@ function App() {
         <div className="App">
           <h1>Clima en la Ciudad</h1>
           <InputCity />
-          <WeatherApp />
+          <CurrentWeather />
+          <Next24HoursForecast/>
+          <Next5DaysForecast />
         </div>
       </ModoProvider>
     </ResultadoProvider>
