@@ -1,20 +1,52 @@
 import React, { useContext } from 'react';
 import '../styles/weather-info.css';
 import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
+import { colorPantallaContext } from '../context/colorPantallaContext';
 
-export const WeatherApp = () => {
+const WeatherApp = () => {
   const { weatherData } = useContext(resultadoConsultaContext);
 
   if (!weatherData) {
     return <p>Busca una ciudad para ver el clima.</p>;
   }
+  const current = weatherData.list?.[0]; // primer registro (clima más cercano)
+  const now = Date.now() / 1000; // tiempo actual en segundos (dt está en segundos)
 
-  // El pronóstico está en weatherData.list (por ser la respuesta de /forecast)
-  const forecastData = weatherData.list
-    ? weatherData.list.filter((item, idx) => idx % 8 === 0)
-    : [];
+  // ---- Próximas 24 horas (sin importar si cambia de día) ----
+  const next24hForecast = weatherData.list.filter(item => {
+    return item.dt > now && item.dt <= now + 24 * 3600;
+  });
 
-  const current = weatherData.list?.[0];
+
+  // ---- AGRUPAR POR DÍA PARA LOS 5 DÍAS ----
+  const groupedByDay = {};
+  weatherData.list.forEach(item => {
+    const date = item.dt_txt.split(" ")[0]; // yyyy-mm-dd
+    if (!groupedByDay[date]) {
+      groupedByDay[date] = [];
+    }
+    groupedByDay[date].push(item);
+  });
+
+  // Armamos un array con las mínimas y máximas por día
+  const dailyForecast = Object.keys(groupedByDay).map(date => {
+    const dayData = groupedByDay[date];
+    const temps = dayData.map(d => d.main.temp);
+    const min = Math.min(...temps);
+    const max = Math.max(...temps);
+
+    // Tomamos el icono del mediodía si existe, o el primero
+    const noonData = dayData.find(d => d.dt_txt.includes("12:00:00")) || dayData[0];
+
+    return {
+      date,
+      min,
+      max,
+      icon: noonData.weather[0].icon,
+      desc: noonData.weather[0].description,
+      wind: noonData.wind.speed,
+    };
+  }).slice(0, 5); // próximos 5 días
 
   return (
     <div className="weather-container">
@@ -25,47 +57,58 @@ export const WeatherApp = () => {
           src={`https://openweathermap.org/img/wn/${current.weather?.[0]?.icon}@4x.png`}
           alt={current.weather?.[0]?.description}
         />
-        <h2>
-          {weatherData.city?.name}, {weatherData.city?.country}
-        </h2>
-      </div>
-      <div className="weather-main">
-        <div className="weather-main-info">
-          <p><strong>Temperatura:</strong> {current.main?.temp} °C</p>
-          <p><strong>Sensación térmica:</strong> {current.main?.feels_like} °C</p>
-          <p><strong>Humedad:</strong> {current.main?.humidity} %</p>
-          <p><strong>Presión:</strong> {current.main?.pressure} hPa</p>
-          <p><strong>Viento:</strong> {current.wind?.speed} m/s</p>
-          <p><strong>Descripción:</strong> {current.weather?.[0]?.description}</p>
+        <div>
+          <h2>
+            {weatherData.city?.name}, {weatherData.city?.country}
+          </h2>
+          <p style={{ fontSize: "1.2rem", margin: "5px 0" }}>
+            {Math.round(current.main?.temp)}°C
+          </p>
+          <p>{current.weather?.[0]?.description}</p>
         </div>
       </div>
 
-      {/* Pronóstico */}
-      {forecastData.length > 0 && (
-        <div className="forecast-section">
-          <h3>Pronóstico de los próximos días:</h3>
-          <div className="forecast-list">
-            {forecastData.map((day, index) => (
-              <div className="forecast-card" key={index}>
-                <h4>{new Date(day.dt * 1000).toLocaleDateString()}</h4>
-                <img
-                  className="forecast-icon"
-                  src={`https://openweathermap.org/img/wn/${day.weather[0]?.icon}@2x.png`}
-                  alt={day.weather[0]?.description}
-                />
-                <div className="forecast-temp">
-                  <span>Máx: {day.main.temp_max}°C</span><br />
-                  <span>Mín: {day.main.temp_min}°C</span>
-                </div>
-                <div className="forecast-desc">{day.weather[0]?.description}</div>
-                <div style={{ fontSize: '0.95rem', color: '#b8c1ec' }}>
-                  Viento: {day.wind?.speed} m/s
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Pronóstico de HOY cada 3 horas */}
+      <div className="today-section">
+        <h3>Hoy</h3>
+        <div className="today-list">
+          {next24hForecast.map((item, i) => (
+            <div className="today-card" key={i}>
+              <p>{new Date(item.dt * 1000).getHours()}:00</p>
+              <img
+                src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                alt={item.weather[0].description}
+              />
+              <p>{Math.round(item.main.temp)}°C</p>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
+
+      {/* Pronóstico próximos 5 días */}
+      <div className="forecast-section">
+        <h3>Próximos 5 días</h3>
+        <div className="forecast-list">
+          {dailyForecast.map((day, idx) => (
+            <div className="forecast-card" key={idx}>
+              <h4>{new Date(day.date).toLocaleDateString("es-AR", { weekday: 'short', day: 'numeric' })}</h4>
+              <img
+                className="forecast-icon"
+                src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                alt={day.desc}
+              />
+              <div className="forecast-temp">
+                <span>Máx: {Math.round(day.max)}°C</span><br />
+                <span>Mín: {Math.round(day.min)}°C</span>
+              </div>
+              <div className="forecast-desc">{day.desc}</div>
+              <div style={{ fontSize: '0.95rem', color: '#b8c1ec' }}>
+                Viento: {day.wind} m/s
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

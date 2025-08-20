@@ -8,7 +8,7 @@ import WeatherApp from './components/WeatherApp';  // Suponiendo que tienes este
 
 function App() {
   return (
-    <ResultadoProvider>
+    <ResultadoProvider >
       <ModoProvider>
         <div className="App">
           <h1>Clima en la Ciudad</h1>
