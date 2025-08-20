@@ -1,7 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 
 // Crear el contexto de consulta de clima
-export const resultadoConsultaContext = createContext();
+export const resultadoConsultaContext = React.createContext();
 
 // Componente Provider que envuelve la aplicación
 export const ResultadoProvider = ({ children }) => {
