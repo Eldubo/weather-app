@@ -1,8 +1,8 @@
 
-import React, { createContext, useState, useContext } from 'react';
+import React, { useState} from 'react';
 
 // Crear el contexto de últ consulta
-export let colorPantallaContext = createContext();
+export const colorPantallaContext = React.createContext();
 
 
 // Componente Provider que envuelve la aplicación
