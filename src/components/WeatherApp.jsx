@@ -9,14 +9,14 @@ const WeatherApp = () => {
   if (!weatherData) {
     return <p>Busca una ciudad para ver el clima.</p>;
   }
+  const current = weatherData.list?.[0]; // primer registro (clima más cercano)
+  const now = Date.now() / 1000; // tiempo actual en segundos (dt está en segundos)
 
-  const current = weatherData.list?.[0]; // el primer registro es el más cercano al momento actual
-  const todayDate = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+  // ---- Próximas 24 horas (sin importar si cambia de día) ----
+  const next24hForecast = weatherData.list.filter(item => {
+    return item.dt > now && item.dt <= now + 24 * 3600;
+  });
 
-  // ---- HOY (cada 3 horas) ----
-  const todayForecast = weatherData.list.filter(item =>
-    item.dt_txt.startsWith(todayDate)
-  );
 
   // ---- AGRUPAR POR DÍA PARA LOS 5 DÍAS ----
   const groupedByDay = {};
@@ -72,7 +72,7 @@ const WeatherApp = () => {
       <div className="today-section">
         <h3>Hoy</h3>
         <div className="today-list">
-          {todayForecast.map((item, i) => (
+          {next24hForecast.map((item, i) => (
             <div className="today-card" key={i}>
               <p>{new Date(item.dt * 1000).getHours()}:00</p>
               <img
