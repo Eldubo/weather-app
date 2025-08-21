@@ -1,9 +1,13 @@
 
-import React from 'react';
+import React, {useContext} from 'react';
 import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
 
 export const CurrentWeather = () => {
-  const { weatherData } =React. useContext(resultadoConsultaContext);
+  const { weatherData } = useContext(resultadoConsultaContext);
+
+  if (!weatherData) {
+    return <p>Busca una ciudad para ver el clima.</p>;
+  }
 
   const current = weatherData.list?.[0];
 
@@ -44,5 +48,4 @@ export const CurrentWeather = () => {
 </div>
   );
 
-
-export default CurrentWeather;
+  };

@@ -1,11 +1,14 @@
 import React from "react";
 import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
-import {HourlyForecast}  from './CurrentWeather'
+import HourlyForecast  from './HourlyForecast'
 
 
 function Next24HoursForecast() {
     const { weatherData } = React.useContext(resultadoConsultaContext);
 
+    if (!weatherData) {
+      return null;
+    }
     const now = Date.now() / 1000; // tiempo actual en segundos (dt está en segundos)
 
     const next24hForecast = weatherData.list.filter(item => {
@@ -18,7 +21,7 @@ function Next24HoursForecast() {
     <h3>Próximas 24 horas</h3>
     <div className="24hours-list">
       {next24hForecast.map((item, i) => (
-        <HourlyForecast /> 
+        <HourlyForecast climaHora = {item} /> 
       ))}
     </div>
   </div>
