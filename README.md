@@ -1,10 +1,3 @@
-## CREAR UNA BRANCH Y REALIZAR UN PR
-
-Cambios que hay que hacer: 
-- Hacer componente dailyForecast
-- - Eliminar WeatherApp
- - Aplicar css
- - Pasar por props de un componente 
 
 # React + Vite
 
