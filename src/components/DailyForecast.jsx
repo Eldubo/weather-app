@@ -6,7 +6,7 @@ import { colorPantallaContext } from '../context/colorPantallaContext';
 const DailyForecast = ({climaDia}) => {
 
   return (
-    <div className="forecast-card" key={idx}>
+    <div className="forecast-card" >
     <h4>{new Date(climaDia.date).toLocaleDateString("es-AR", { weekday: 'short', day: 'numeric' })}</h4>
     <img
       className="forecast-icon"

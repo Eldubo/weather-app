@@ -1,7 +1,7 @@
 
 import React from "react";
 import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
-import HourlyForecast from "./HourlyForecast"
+import DailyForecast from "./DailyForecast"
 
 function Next5DaysForecast() {
     const { weatherData } = React.useContext(resultadoConsultaContext);
@@ -28,6 +28,7 @@ function Next5DaysForecast() {
     const min = Math.min(...temps);
     const max = Math.max(...temps);
      // próximos 5 días
+     
 
         // Tomamos el icono del mediodía si existe, o el primero
     const noonData = dayData.find(d => d.dt_txt.includes("12:00:00")) || dayData[0];
@@ -49,7 +50,7 @@ function Next5DaysForecast() {
         <h3>Próximos 5 días</h3>
         <div className="forecast-list">
           {dailyForecast.map((day, idx) => (
-            <HourlyForecast climaDia={day} />
+            <DailyForecast climaDia={day} key={idx} />
           ))}
         </div>
       </div>

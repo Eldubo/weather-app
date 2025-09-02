@@ -11,20 +11,6 @@ export const CurrentWeather = () => {
 
   const current = weatherData.list?.[0];
 
-    // Tomamos el icono del mediodía si existe, o el primero
-    /*
-<div className="weather-main">
-        <div className="weather-main-info">
-          <p><strong>Temperatura:</strong> {current.main?.temp} °C</p>
-          <p><strong>Sensación térmica:</strong> {current.main?.feels_like} °C</p>
-          <p><strong>Humedad:</strong> {current.main?.humidity} %</p>
-          <p><strong>Presión:</strong> {current.main?.pressure} hPa</p>
-          <p><strong>Viento:</strong> {current.wind?.speed} m/s</p>
-          <p><strong>Descripción:</strong> {current.weather?.[0]?.description}</p>
-        </div>
-      </div>
-    */
-
   return (
 
 <div className="weather-container">
