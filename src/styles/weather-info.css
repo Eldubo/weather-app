@@ -195,6 +195,10 @@ body {
   gap: 12px;
   width: 100%;
 }
+.today-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+}
 .today-card {
   min-width: 90px;
   background-color: #1e293b;
@@ -223,6 +227,19 @@ body {
 }
 
 
+.weather-container {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+
+.forecast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+}
 .forecast-card {
   display: flex;
   justify-content: space-between;
