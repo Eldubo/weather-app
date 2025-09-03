@@ -1,7 +1,6 @@
 import { fetchWeatherData } from '../services/weather-app-service.js';
 import React, { useState, useContext } from 'react';
 import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
-import '../styles/weather-info.css';
 
 const InputCity = () => {
   const [inputValue, setInputValue] = useState('');

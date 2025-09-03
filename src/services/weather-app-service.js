@@ -15,7 +15,7 @@ export const fetchWeatherData = async (city) => {
     const responseClima5Dias = await fetch(urlClima5Dias);
 
     if (!responseClima5Dias.ok) {
-      throw new Error(`Error clima 5 días: ${responseClima5Dias.statusText}`);
+      throw new Error(`Error al buscar la ciudad: ${responseClima5Dias.statusText}`);
     }
     const dataClima5Dias = await responseClima5Dias.json();
     console.log(dataClima5Dias);
