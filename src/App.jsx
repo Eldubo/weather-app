@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ResultadoProvider } from "./context/resultadoConsultaContext";
 import { ModoProvider, colorPantallaContext } from "./context/colorPantallaContext";
 import InputCity from "./components/InputCity";
@@ -10,6 +10,13 @@ import "./App.css";
 
 function AppContent() {
   const { colorPantalla } = useContext(colorPantallaContext);
+
+  useEffect(() => {
+    const clsDark = "dark-theme";
+    const clsLight = "light-theme";
+    document.body.classList.remove(clsDark, clsLight);
+    document.body.classList.add(colorPantalla === "dark" ? clsDark : clsLight);
+  }, [colorPantalla]);  
 
   return (
     <div className={`App ${colorPantalla === "dark" ? "dark-theme" : "light-theme"}`}>
