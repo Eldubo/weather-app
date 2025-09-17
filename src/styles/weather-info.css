@@ -1,4 +1,108 @@
-/* ===== Reset y base ===== */
+/* ===== Ciudad y condiciones actuales ===== */
+.city-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.city-info .city-name {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.city-info .weather-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #b8c1ec;
+}
+
+.city-info .weather-details span {
+  font-size: 1.1rem;
+}
+
+.weather-details .temperature {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.weather-details .description {
+  font-size: 1.1rem;
+  color: #eebbc3;
+}
+
+/* ===== Pronóstico 5 días ===== */
+.forecast-section {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.forecast-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #eebbc3;
+}
+
+.forecast-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.forecast-card {
+  background-color: #121629;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(31, 38, 135, 0.15);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.forecast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+}
+
+.forecast-card h4 {
+  font-size: 1.1rem;
+  color: #eebbc3;
+}
+
+.forecast-card .forecast-temp {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.forecast-card .forecast-desc {
+  font-size: 1rem;
+  color: #b8c1ec;
+}
+
+/* ===== Media Queries ===== */
+@media (max-width: 768px) {
+  .search-bar input {
+    width: 160px;
+  }
+  .forecast-list {
+    grid-template-columns: 1fr; /* 1 tarjeta por fila */
+  }
+}
+
+@media (max-width: 500px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  .city-info .city-name {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* ===== Reset ===== */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -69,6 +173,7 @@ body {
   background: #e2e8f0;
   color: #0f172a;
 }
+
 .button-search {
   padding: 10px 16px;
   border-radius: 12px;
@@ -127,6 +232,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 12px;
   width: 100%;
+  
 }
 .today-card {
   min-width: 90px;
@@ -198,6 +304,9 @@ body {
 .forecast-card .forecast-desc {
   font-size: 1rem;
   color: #b8c1ec;
+}
+.light-theme .forecast-temp {
+  color: #0f172a;
 }
 
 /* ===== Responsive ===== */
