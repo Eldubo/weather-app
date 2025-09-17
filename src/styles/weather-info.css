@@ -507,3 +507,40 @@ body.light-theme .today-card .hourly-time,
 body.light-theme .today-card .hourly-temp{
   color: #0f172a;
 }
+/* ===== FIX overflow/bleed y línea negra ===== */
+
+/* 1) Nunca permitir scroll horizontal (oculta mordidas) */
+html, body { overflow-x: hidden; }
+
+/* 2) Footer hereda el fondo del body y no pinta sombras oscuras */
+footer, .app-footer {
+  background: inherit !important;
+  border-top: 1px solid rgba(0,0,0,.08);
+  box-shadow: none !important;
+}
+
+/* 3) Reemplazo SEGURO del "full-bleed" (sin usar vw que provoca desbordes) */
+.full-bleed {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* centra sin vw */
+  width: 100%;                 /* se estira hasta los bordes del viewport */
+  max-width: 100%;             /* jamás más que el viewport */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 0;
+}
+
+/* 4) En modo claro, asegurá fondo claro en todo el árbol superior */
+body.light-theme,
+body.light-theme html,
+body.light-theme #root,
+body.light-theme .App {
+  background: #f5f7fb !important;
+}
+
+/* 5) Por si alguna sección tenía gradiente oscuro residual */
+body.light-theme .app-header,
+body.light-theme .current-graphic {
+  background-image: none !important;
+}
