@@ -57,8 +57,10 @@
   padding: 16px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(31, 38, 135, 0.15);
-  text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
 }
 
 .forecast-card:hover {
@@ -175,6 +177,7 @@ body {
   color: #0f172a;
 }
 
+
 .button-search {
   padding: 10px 16px;
   border-radius: 12px;
@@ -194,6 +197,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 12px;
   width: 100%;
+  
 }
 .today-card:hover {
   transform: translateY(-4px);
@@ -252,6 +256,9 @@ body {
 .forecast-card img {
   width: 40px;
   height: 40px;
+}
+.light-theme .forecast-temp {
+  color: #0f172a;
 }
 
 /* ===== Responsive ===== */
