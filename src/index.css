@@ -1,0 +1,27 @@
+/* index.css - base reset and theme */
+:root{
+    --bg: #0b1120;
+    --bg-accent: #111827;
+    --card: #111827;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --primary: #60a5fa;
+    --accent: #22d3ee;
+    --ring: rgba(96,165,250,.35);
+  }
+  
+  *{box-sizing:border-box}
+  html,body,#root{height:100%}
+  html,body{
+    margin:0;padding:0;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #1f2937 0%, rgba(31,41,55,0) 60%),
+      radial-gradient(900px 500px at 120% 20%, rgba(34,211,238,.2) 0%, rgba(34,211,238,0) 60%),
+      var(--bg);
+    color:var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  button{font:inherit}
+  input,button{outline:none}

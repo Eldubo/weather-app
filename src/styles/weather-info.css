@@ -131,7 +131,8 @@ body {
   color: #0f172a;
 }
 
-.light-theme .forecast-card {
+.light-theme .forecast-card,
+.light-theme .today-card {
   background-color: #fff;
   color: #0f172a;
 }
@@ -149,10 +150,10 @@ body {
   cursor: pointer;
   color: inherit;
   font-size: 1.5rem;
-  img {
-    width: 24px;
-    height: 24px;
-  }
+}
+.pantallaModo img {
+  width: 24px;
+  height: 24px;
 }
 
 /* ===== InputCity ===== */
@@ -161,7 +162,6 @@ body {
   gap: 8px;
   margin: 12px 0;
 }
-
 .input-search {
   flex: 1;
   padding: 10px 14px;
@@ -171,7 +171,6 @@ body {
   background: #1e293b;
   color: #fff;
 }
-
 .light-theme .input-search {
   background: #e2e8f0;
   color: #0f172a;
@@ -187,21 +186,57 @@ body {
   cursor: pointer;
 }
 
-/* ===== Forecast 24h ===== */
+/* ===== Clima actual ===== */
+.weather-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.weather-icon {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  display: block;
+}
+.current-graphic {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.current-graphic > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ===== Pronóstico 24h ===== */
 .hours24-section {
   margin-top: 20px;
 }
-/* Pronóstico 24h */
 .hours24-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 12px;
   width: 100%;
   
-}
-.today-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+
 }
 .today-card {
   min-width: 90px;
@@ -210,68 +245,309 @@ body {
   border-radius: 12px;
   text-align: center;
   flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.today-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+}
+.hourly-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
-.light-theme .today-card {
-  background-color: #e2e8f0;
-  color: #0f172a;
+/* ===== Pronóstico 5 días ===== */
+.forecast-section {
+  width: 100%;
+  margin-top: 24px;
 }
-
-/* ===== Forecast 5 días ===== */
 .forecast-section h3 {
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #eebbc3;
 }
-
-
 .forecast-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   width: 100%;
 }
-
-
-.weather-container {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-
-.forecast-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
-}
 .forecast-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #1e293b;
-  padding: 12px 16px;
+  padding: 16px;
   border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(31, 38, 135, 0.15);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-
-.forecast-card img {
-  width: 40px;
-  height: 40px;
+.forecast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(31, 38, 135, 0.18);
+}
+.forecast-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+}
+.forecast-card h4 {
+  font-size: 1.1rem;
+  color: #eebbc3;
+}
+.forecast-card .forecast-temp {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+.forecast-card .forecast-desc {
+  font-size: 1rem;
+  color: #b8c1ec;
+}
+.light-theme .forecast-temp {
+  color: #0f172a;
 }
 .light-theme .forecast-temp {
   color: #0f172a;
 }
 
 /* ===== Responsive ===== */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+  .search-bar input {
+    width: 160px;
+  }
   .forecast-list {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
+}
+@media (max-width: 500px) {
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+  .weather-icon,
+  .current-graphic {
+    width: 100px;
+    height: 100px;
+  }
+  .forecast-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .hourly-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+/* ========= THEME (fondo claro/oscuro) ========= */
+:root{
+  --bg-dark: #0a1020;         /* fondo global dark */
+  --bg-light: #f5f7fb;        /* fondo global light */
+  --card-dark: #111827;       /* card dark */
+  --card-light: #ffffff;      /* card light */
+  --text-dark: #e5e7eb;
+  --text-light: #0f172a;
+}
 
-  .hours24-list {
-    gap: 16px;
-  }
+/* Aplica a tu contenedor raíz (donde ponés .dark-theme o .light-theme) */
+.dark-theme, .light-theme { min-height: 100vh; }
 
-  .today-card {
-    min-width: 110px;
+/* Fondo global DARK con leve gradiente */
+.dark-theme{
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(31,41,55,.6) 0%, rgba(31,41,55,0) 60%),
+    radial-gradient(900px 500px at 120% 20%, rgba(34,211,238,.12) 0%, rgba(34,211,238,0) 60%),
+    var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Fondo global LIGHT */
+.light-theme{
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+/* Cards se adaptan al tema */
+.dark-theme .forecast-card,
+.dark-theme .today-card{ background: var(--card-dark); color: var(--text-dark); }
+
+.light-theme .forecast-card,
+.light-theme .today-card{ background: var(--card-light); color: var(--text-light); }
+
+/* ========= 5 DÍAS — layout contenido dentro de la card ========= */
+/* La card se vuelve una grilla (icono a la izquierda, texto a la derecha) */
+.forecast-card{
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr; /* icono | contenido */
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  overflow: hidden;            /* nada se sale de la card */
+  word-wrap: break-word;
+  overflow-wrap: anywhere;     /* corta textos largos si es necesario */
+}
+
+/* Asegura que el icono no desborde */
+.forecast-icon{
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+  grid-column: 1 / 2;
+}
+
+/* Contenedor del texto de la card (cubre la 2da columna) */
+.forecast-content{
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr auto; /* izquierda info / derecha temperaturas */
+  column-gap: 12px;
+  row-gap: 4px;
+  align-items: start;
+}
+
+/* Si no tenés .forecast-content en el JSX, este fallback mete todo el texto en col 2 */
+.forecast-card > :not(img){
+  grid-column: 2 / 3;
+}
+
+/* Día/fecha */
+.forecast-card h4,
+.forecast-card .forecast-day{
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #eebbc3;
+}
+
+/* Descripción (clear sky, etc.) */
+.forecast-desc{
+  font-size: .9rem;
+  opacity: .9;
+}
+
+/* Temperaturas apiladas a la derecha */
+.forecast-temp{
+  text-align: right;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Viento y extras, se alinean abajo a la izquierda */
+.forecast-wind,
+.forecast-extra{
+  font-size: .85rem;
+  opacity: .85;
+}
+
+/* Hover prolijo */
+.forecast-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.22);
+}
+
+/* ========= RESPONSIVE ========= */
+@media (max-width: 640px){
+  .forecast-card{
+    grid-template-columns: 46px 1fr;
+    padding: 12px;
   }
+  .forecast-icon{ width: 42px; height: 42px; }
+  .forecast-temp{ font-size: .95rem; }
+}
+
+/* ========= EXTRA: por si el texto se pegaba al borde ========= */
+.forecast-list{
+  gap: 14px;          /* separa cards entre sí */
+}
+body.dark-theme {
+  background: linear-gradient(180deg, #0a1020 0%, #111827 100%);
+  color: #f8fafc;
+}
+
+body.light-theme {
+  background: #f5f7fb;
+  color: #0f172a;
+}
+body.light-theme .forecast-section h3{
+  color: #0f172a; /* título oscuro */
+}
+
+body.light-theme .forecast-card{
+  background: #ffffff;
+  color: #0f172a;                 /* texto base oscuro */
+  border: 1px solid #e2e8f0;      /* borde sutil para separar del fondo */
+}
+
+body.light-theme .forecast-card h4,
+body.light-theme .forecast-day{
+  color: #0f172a;                 /* día/fecha */
+}
+
+body.light-theme .forecast-desc,
+body.light-theme .forecast-wind,
+body.light-theme .forecast-extra{
+  color: #334155;                 /* gris legible (no celeste pálido) */
+  opacity: 1;
+}
+
+body.light-theme .forecast-temp{
+  color: #111827;                 /* números bien fuertes */
+}
+
+/* 24 horas */
+body.light-theme .today-card{
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+}
+
+/* (Opcional) sub-textos dentro de 24h si usás clases separadas */
+body.light-theme .today-card .hourly-time,
+body.light-theme .today-card .hourly-temp{
+  color: #0f172a;
+}
+/* ===== FIX overflow/bleed y línea negra ===== */
+
+/* 1) Nunca permitir scroll horizontal (oculta mordidas) */
+html, body { overflow-x: hidden; }
+
+/* 2) Footer hereda el fondo del body y no pinta sombras oscuras */
+footer, .app-footer {
+  background: inherit !important;
+  border-top: 1px solid rgba(0,0,0,.08);
+  box-shadow: none !important;
+}
+
+/* 3) Reemplazo SEGURO del "full-bleed" (sin usar vw que provoca desbordes) */
+.full-bleed {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* centra sin vw */
+  width: 100%;                 /* se estira hasta los bordes del viewport */
+  max-width: 100%;             /* jamás más que el viewport */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 0;
+}
+
+/* 4) En modo claro, asegurá fondo claro en todo el árbol superior */
+body.light-theme,
+body.light-theme html,
+body.light-theme #root,
+body.light-theme .App {
+  background: #f5f7fb !important;
+}
+
+/* 5) Por si alguna sección tenía gradiente oscuro residual */
+body.light-theme .app-header,
+body.light-theme .current-graphic {
+  background-image: none !important;
 }
