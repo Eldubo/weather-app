@@ -13,13 +13,17 @@ function Next5DaysForecast() {
 
   // ---- AGRUPAR POR DÍA PARA LOS 5 DÍAS ----
   const groupedByDay = {};
-  weatherData.list.forEach(item => {
-    const date = item.dt_txt.split(" ")[0]; // yyyy-mm-dd
-    if (!groupedByDay[date]) {
-      groupedByDay[date] = [];
-    }
-    groupedByDay[date].push(item);
-  });
+  
+    weatherData.list.forEach(item => {
+      // Convertimos el timestamp a la zona horaria de Buenos Aires
+      const dateObj = new Date(item.dt * 1000); // `item.dt` es el timestamp
+      const localDate = dateObj.toLocaleDateString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' });
+      console.log(localDate);
+      if (!groupedByDay[localDate]) {
+        groupedByDay[localDate] = [];
+      }
+      groupedByDay[localDate].push(item);
+    });
 
   // Armamos un array con las mínimas y máximas por día
   const dailyForecast = Object.keys(groupedByDay).map(date => {
@@ -27,21 +31,22 @@ function Next5DaysForecast() {
     const temps = dayData.map(d => d.main.temp);
     const min = Math.min(...temps);
     const max = Math.max(...temps);
-     // próximos 5 días
-     
-
-        // Tomamos el icono del mediodía si existe, o el primero
+  
+    // Tomamos el icono del mediodía si existe, o el primero
     const noonData = dayData.find(d => d.dt_txt.includes("12:00:00")) || dayData[0];
     
+    // Convertir la fecha a un formato válido (si ya es solo una cadena de texto tipo "yyyy-mm-dd")
+    const localDate = new Date(date + 'T00:00:00'); // Esto asegura que la fecha tenga formato ISO
+    
     return {
-      date,
+      date: localDate,
       min,
       max,
       icon: noonData.weather[0].icon,
       desc: noonData.weather[0].description,
       wind: noonData.wind.speed,
     };
-  }).slice(0, 5);
+  }).slice(1, 5);
   
   return (
     <div className="daily-forecast">
