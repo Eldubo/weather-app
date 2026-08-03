@@ -1,9 +1,22 @@
 import React from 'react';
+<<<<<<< Updated upstream
 
 const DailyForecast = ({climaDia}) => {
   return (
     <div className="forecast-card">
       <h4>{climaDia.date.toLocaleDateString("es-AR", { weekday: 'short', day: 'numeric' })}</h4>
+=======
+
+const formatDay = (dateString) => {
+  const safeDate = new Date(`${dateString}T12:00:00`);
+  return safeDate.toLocaleDateString("es-AR", { weekday: 'short', day: 'numeric' });
+};
+
+const DailyForecast = ({ climaDia }) => {
+  return (
+    <div className="forecast-card">
+      <h4>{formatDay(climaDia.date)}</h4>
+>>>>>>> Stashed changes
       <img
         className="forecast-icon"
         src={`https://openweathermap.org/img/wn/${climaDia.icon}@2x.png`}

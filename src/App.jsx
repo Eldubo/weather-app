@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { ResultadoProvider } from "./context/resultadoConsultaContext";
-import { ModoProvider, colorPantallaContext } from "./context/colorPantallaContext";
+import { ModoProvider } from "./context/colorPantallaContext";
+import { colorPantallaContext } from "./context/weather-contexts";
 import InputCity from "./components/InputCity";
 import Next24HoursForecast from "./components/Next24HoursForecast";
 import Next5DaysForecast from "./components/Next5DaysForecast";

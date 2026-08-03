@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { colorPantallaContext } from "../context/colorPantallaContext";
+import { colorPantallaContext } from "../context/weather-contexts";
 import Sun from "../assets/images/Sun.png";
 import Moon from "../assets/images/Moon.png";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
+import { resultadoConsultaContext } from '../context/weather-contexts';
 import HourlyForecast  from './HourlyForecast'
 
 
@@ -20,7 +20,7 @@ function Next24HoursForecast() {
     <div className="hours24-section">
     <h3>Próximas 24 horas</h3>
     <div className="hours24-list">
-      {next24hForecast.map((item, i) => (
+      {next24hForecast.map((item) => (
         <HourlyForecast climaHora = {item} key={item?.dt ?? Math.random()} /> 
       ))}
     </div>

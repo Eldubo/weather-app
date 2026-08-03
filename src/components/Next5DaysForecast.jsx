@@ -1,16 +1,21 @@
 
 import React from "react";
-import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
+import { resultadoConsultaContext } from '../context/weather-contexts';
 import DailyForecast from "./DailyForecast"
 
 function Next5DaysForecast() {
     const { weatherData } = React.useContext(resultadoConsultaContext);
 
-    if (!weatherData) {
+    if (!weatherData || !Array.isArray(weatherData.list) || weatherData.list.length === 0) {
       return null;
     }
 
+    const groupedByDay = {};
+    weatherData.list.forEach(item => {
+      const date = item.dt_txt?.split(" ")[0];
+      if (!date) return;
 
+<<<<<<< Updated upstream
   // ---- AGRUPAR POR DÍA PARA LOS 5 DÍAS ----
   const groupedByDay = {};
   
@@ -47,6 +52,39 @@ function Next5DaysForecast() {
       wind: noonData.wind.speed,
     };
   }).slice(1, 5);
+=======
+      if (!groupedByDay[date]) {
+        groupedByDay[date] = [];
+      }
+      groupedByDay[date].push(item);
+    });
+
+    const today = new Date();
+    const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+    const tomorrowStr = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, "0")}-${String(tomorrow.getDate()).padStart(2, "0")}`;
+
+    const dates = Object.keys(groupedByDay)
+      .filter(date => date >= tomorrowStr)
+      .sort();
+
+    const dailyForecast = dates.slice(0, 5).map(date => {
+      const dayData = groupedByDay[date];
+      const temps = dayData.map(d => d.main.temp);
+      const min = Math.min(...temps);
+      const max = Math.max(...temps);
+
+      const noonData = dayData.find(d => d.dt_txt.includes("12:00:00")) || dayData[0];
+
+      return {
+        date,
+        min,
+        max,
+        icon: noonData.weather[0].icon,
+        desc: noonData.weather[0].description,
+        wind: noonData.wind.speed,
+      };
+    });
+>>>>>>> Stashed changes
   
   return (
     <div className="daily-forecast">

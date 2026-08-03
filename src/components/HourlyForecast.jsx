@@ -1,5 +1,4 @@
 import React from "react";
-import { resultadoConsultaContext } from '../context/resultadoConsultaContext';
 
 function HourlyForecast({climaHora}) {
   if (!climaHora || typeof climaHora.dt !== "number") return null;

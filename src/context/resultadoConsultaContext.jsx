@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { resultadoConsultaContext as ResultadoConsultaContext } from './weather-contexts';
 
-// Crear el contexto de consulta de clima
-export const resultadoConsultaContext = React.createContext();
-
-// Componente Provider que envuelve la aplicación
 export const ResultadoProvider = ({ children }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   return (
-    <resultadoConsultaContext.Provider value={{ weatherData, setWeatherData }}>
+    <ResultadoConsultaContext.Provider value={{ weatherData, setWeatherData }}>
       {children}
-    </resultadoConsultaContext.Provider>
+    </ResultadoConsultaContext.Provider>
   );
 };
